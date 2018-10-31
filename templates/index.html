@@ -10,11 +10,53 @@
 </head>
 
 <body>
-  <div clas="container">
+  <div class="container">
     <div class="jumbotron text-center">
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+  </div>
+
+  <h1 class="my-4">{{ mars.news_title }}</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <img class="img-fluid img-rounded" src= {{ mars.featured_image_url }} style="width: 60%">
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="my-3">{{ mars.news_p }}</h3>
+      <br>
+      <br>
+      <h4 class="my-3">Mars Weather</h4>
+        <p>{{ mars.mars_weather }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="my-3">{{ mars.mars_facts | safe }}</h3>
+    </div>
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[0]["img_url"] }} style="width: 60%">
+      <h3 class="my-3">{{ mars.hemisphere_image_urls[0]["title"] }}</h3>
+    </div>
+    <div class="col-md-3">
+      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[1]["img_url"] }} style="width: 60%">
+      <h3 class="my-3">{{ mars.hemisphere_image_urls[1]["title"] }}</h3>
+    </div>
+    <div class="col-md-3">
+      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[2]["img_url"] }} style="width: 60%">
+      <h3 class="my-3">{{ mars.hemisphere_image_urls[2]["title"] }}</h3>
+    </div>
+    <div class="col-md-3">
+      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[3]["img_url"] }} style="width: 60%">
+      <h3 class="my-3">{{ mars.hemisphere_image_urls[3]["title"] }}</h3>
+    </div>
+  </div>
+
 
 </body>
 </html>

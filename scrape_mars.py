@@ -23,7 +23,7 @@ def scrape():
     jpl = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(jpl)
     browser.click_link_by_partial_text('FULL IMAGE')
-    sleep(2)
+    sleep(3)
     browser.click_link_by_partial_text('more info')
     sleep(1)
     browser.click_link_by_partial_text('.jpg')
@@ -48,7 +48,7 @@ def scrape():
 
     html_table = facts_df.to_html()
     html_table.replace('\n', '')
-    facts_df.to_html('html_table.html')
+    scrape_data["mars_facts"] = facts_df.to_html()
 # Part 5
     hemisphere_image_urls = []
     usgs_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -67,8 +67,5 @@ def scrape():
     # save to dictionary scrape_data
     scrape_data["hemisphere_image_urls"] = hemisphere_image_urls
 
-    print(scrape_data)
+    browser.quit()
     return scrape_data
-
-
-scrape()
