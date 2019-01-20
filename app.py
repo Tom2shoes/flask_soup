@@ -4,7 +4,7 @@ import scrape_mars
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://mars:scraper1@ds161794.mlab.com:61794/heroku_1gn9n021"
-mongo = PyMongo(app)
+mongo = pymongo(app)
 
 @app.route('/')
 def index():
