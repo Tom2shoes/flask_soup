@@ -3,11 +3,17 @@ from splinter import Browser
 from time import sleep
 import pandas as pd
 import requests
+import os
+from selenium import webdriver
 
 
 def init_browser():
-    executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
-    return Browser("chrome", **executable_path, headless=False)
+    driver_path = os.environ.get('GOOGLE_CHROME_SHIM', None)
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = driver_path
+    chrome_options.add_argument('no-sandbox')
+    chrome_options.add_argument('--headless')
+    return Browser('chrome', executable_path="chromedriver", options=chrome_options, headless=True)
 
 def scrape():
     scrape_data = {}
@@ -50,22 +56,22 @@ def scrape():
     html_table.replace('\n', '')
     scrape_data["mars_facts"] = facts_df.to_html()
 # Part 5
-    hemisphere_image_urls = []
-    usgs_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
-    browser.visit(usgs_url)
-    usgs_soup = bs(browser.html, 'lxml')
+    # hemisphere_image_urls = []
+    # usgs_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    # browser.visit(usgs_url)
+    # usgs_soup = bs(browser.html, 'lxml')
 
-    image_titles = usgs_soup.find_all("h3")
+    # image_titles = usgs_soup.find_all("h3")
 
-    for title, x in zip(image_titles, range(1, 5)):
-        browser.click_link_by_partial_text(title.text)
-        browser.click_link_by_partial_href('.jpg')
-        img_url = browser.windows[x].url
-        browser.windows[0]
-        browser.back()
-        hemisphere_image_urls.append({"title": title.text, "img_url": img_url})
+    # for title, x in zip(image_titles, range(1, 5)):
+    #     browser.click_link_by_partial_text(title.text)
+    #     browser.click_link_by_partial_href('.jpg')
+    #     img_url = browser.windows[x].url
+    #     browser.windows[0]
+    #     browser.back()
+    #     hemisphere_image_urls.append({"title": title.text, "img_url": img_url})
     # save to dictionary scrape_data
-    scrape_data["hemisphere_image_urls"] = hemisphere_image_urls
+    #scrape_data["hemisphere_image_urls"] = hemisphere_image_urls
 
     browser.quit()
     return scrape_data
