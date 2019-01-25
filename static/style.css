@@ -1,0 +1,21 @@
+#news_title {
+    margin: 30px;
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+}
+
+#subheader {
+    padding-top: 30px;
+    margin-top: 200px;
+    padding-bottom: 200px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}

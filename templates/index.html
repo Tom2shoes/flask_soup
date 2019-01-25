@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="Ie=edge,chrome=1">
   <title>Mission to Mars</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -17,46 +18,67 @@
     </div>
   </div>
 
-  <h1 class="my-4">{{ mars.news_title }}</h1>
-
-  <div class="row">
-    <div class="col-md-6">
-      <img class="img-fluid img-rounded" src= {{ mars.featured_image_url }} style="width: 60%">
-    </div>
-
-    <div class="col-md-6">
-      <h3 class="my-3">{{ mars.news_p }}</h3>
-      <br>
-      <br>
-      <h4 class="my-3">Mars Weather</h4>
-        <p>{{ mars.mars_weather }}</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+          <img class="img-fluid img-rounded img-responsive" src= {{ mars.featured_image_url }} >
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <h3 class="my-3">{{ mars.mars_facts | safe }}</h3>
-    </div>
   <br>
-  <!-- {#<div class="row">
-    <div class="col-md-3">
-      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[0]["img_url"] }} style="width: 60%">
-      <h3 class="my-3">{{ mars.hemisphere_image_urls[0]["title"] | default('static/images/error.png', true) }}</h3>
-    </div>
-    <div class="col-md-3">
-      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[1]["img_url"] }} style="width: 60%">
-      <h3 class="my-3">{{ mars.hemisphere_image_urls[1]["title"] | default('static/images/error.png', true) }}</h3>
-    </div>
-    <div class="col-md-3">
-      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[2]["img_url"] }} style="width: 60%">
-      <h3 class="my-3">{{ mars.hemisphere_image_urls[2]["title"] | default('static/images/error.png', true) }}</h3>
-    </div>
-    <div class="col-md-3">
-      <img class="img-fluid img-rounded" src= {{ mars.hemisphere_image_urls[3]["img_url"] }} style="width: 60%">
-      <h3 class="my-3">{{ mars.hemisphere_image_urls[3]["title"] | default('static/images/error.png', true) }}</h3>
-    </div>
-  </div> #}-->
 
-
+  <div id="subheader" class="container">
+  <div class="row">
+    <h1 id="news_title" class="col-sm-12 text-center">{{ mars.news_title }}</h1>
+  </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="text-center">{{ mars.news_p }}</h4>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-6 weather">
+            <h2>Current Weather on Mars:</h2>
+            <p>{{ mars.mars_weather }}</p>
+        </div>
+        <div class="col-md-6">
+            <h2>Mars Data:</h2>
+            <h3>{{ mars.mars_facts | safe }}</h3>
+        </div>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <hr>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h2>Martian Hemispheres</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[0][img_url] }}>
+        <h3 class="">{{ mars.hemisphere_image_urls[0]["title"] }}</h3>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[1][img_url] }}>
+        <h3 class="">{{ mars.hemisphere_image_urls[1]["title"] }}</h3>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[2][img_url] }}>
+        <h3 class="">{{ mars.hemisphere_image_urls[2]["title"] }}</h3>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[3][img_url] }}>
+        <h3 class="">{{ mars.hemisphere_image_urls[3]["title"] }}</h3>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
