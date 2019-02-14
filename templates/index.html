@@ -21,7 +21,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-          <img class="img-fluid img-rounded img-responsive" src= {{ mars.featured_image_url }} >
+          <img class="img-fluid img-rounded img-responsive" src= "{{ mars.featured_image_url }}" >
       </div>
     </div>
   </div>
@@ -41,9 +41,13 @@
   <hr>
   <div class="container">
     <div class="row">
-        <div class="col-md-6 weather">
-            <h2>Current Weather on Mars:</h2>
-            <p>{{ mars.mars_weather }}</p>
+        <div class="col-md-6">
+            <div>
+                <h2>Current Weather on Mars:</h2>
+            </div>
+            <div>
+                <h3>{{ mars.mars_weather }}</h3>
+            </div>
         </div>
         <div class="col-md-6">
             <h2>Mars Data:</h2>
@@ -60,24 +64,16 @@
         <h2>Martian Hemispheres</h2>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-6">
-        <img class="img-fluid img-rounded img-responsive" src= {{ mars.hemisphere_image_urls[0][img_url] }}>
-        <h3>{{ mars.hemisphere_image_urls[0]["title"] }}</h3>
-      </div>
-      <div class="col-md-6">
-        <img class="img-fluid img-rounded img-responsive" src= {{ mars.hemisphere_image_urls[1][img_url] }}>
-        <h3>{{ mars.hemisphere_image_urls[1]["title"] }}</h3>
-      </div>
-      <div class="col-md-6">
-        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[2][img_url] }}>
-        <h3>{{ mars.hemisphere_image_urls[2]["title"] }}</h3>
-      </div>
-      <div class="col-md-6">
-        <img class="img-fluid img-rounded img-responsive" src={{ mars.hemisphere_image_urls[3][img_url] }}>
-        <h3>{{ mars.hemisphere_image_urls[3]["title"] }}</h3>
-      </div>
+        {% for object in mars.hemisphere_image_urls %}
+        <div class="col-md-6">
+          <img class="img-fluid img-rounded img-responsive" src="{{ object.img_url }}">
+          <h3>{{ object.title }}</h3>
+        </div>
+        {% endfor %}
     </div>
+
   </div>
 </body>
 </html>
