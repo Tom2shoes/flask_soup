@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup as bs
 from splinter import Browser
+from time import sleep
 import pandas as pd
 import requests
 import os
@@ -35,7 +36,9 @@ def scrape():
     jpl = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(jpl)
     browser.click_link_by_partial_text('FULL IMAGE')
+    sleep(1)
     browser.click_link_by_partial_text('more info')
+    sleep(1)
     browser.click_link_by_partial_text('.jpg')
     jpl_soup = bs(browser.html, 'lxml')
     # save to dictionary scrape_data
@@ -75,7 +78,7 @@ def scrape():
         for title, x in zip(image_titles, range(1, 5)):
                 browser.click_link_by_partial_text(title.text)
                 browser.click_link_by_partial_href('.jpg')
-                img_url = browser.windows[x].url.strip()
+                img_url = browser.windows[x].url.strip
                 browser.windows[0]
                 browser.back()
                 hemisphere_image_urls.append({"title": title.text, "img_url": img_url})
