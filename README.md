@@ -1,3 +1,5 @@
+Update 2/13/18 - Deployed to Heroku https://bs4-scraper.herokuapp.com/ scraper is timing out due to 30s request limit
+
 The following Flask application uses Python's BeautifulSoup and requests libraries to scrape images and text about the planet Mars from the following sources:
 
 * [nasa.gov](https://mars.nasa.gov/news/)
