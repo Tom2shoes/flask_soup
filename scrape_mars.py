@@ -13,7 +13,11 @@ def init_browser():
     chrome_options.binary_location = driver_path
     chrome_options.add_argument('no-sandbox')
     chrome_options.add_argument('--headless')
-    return Browser('chrome', executable_path="chromedriver", options=chrome_options, headless=True)
+    return Browser('chrome',
+                   executable_path="chromedriver",
+                   options=chrome_options,
+                   headless=True)
+
 
 def scrape():
     scrape_data = {}
@@ -22,10 +26,11 @@ def scrape():
     # Part 1
     nasa_url = 'https://mars.nasa.gov/news/'
     browser.visit(nasa_url)
-    nasa_soup = bs(browser.html, 'lxml')
     # save to dictionary scrape_data
-    scrape_data["news_title"] = nasa_soup.find("div", class_="content_title").find("a").text
-    scrape_data["news_p"] = nasa_soup.find("div", class_="article_teaser_body").text
+    xpath_t = '//*[@id="page"]/div[2]/div/article/div/section/div/ul/li[1]/div/div/div[2]/a'
+    scrape_data["news_title"] = browser.find_by_xpath(xpath_t).text
+    xpath_p = '//*[@id="page"]/div[2]/div/article/div/section/div/ul/li[1]/div/div/div[3]'
+    scrape_data["news_p"] = browser.find_by_xpath(xpath_p).text
 
     # Part 2
     jpl = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -62,24 +67,25 @@ def scrape():
 
     # Part 5
     hemisphere_image_urls = []
+    browser = init_browser()
     usgs_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    browser.visit(usgs_url)
     usgs_soup = bs(browser.html, 'lxml')
 
-    browser.visit(usgs_url)
-    image_titles = usgs_soup.find_all("h3")
+    image_titles = usgs_soup.find_all(["h3"])
 
     if image_titles:
         for title, x in zip(image_titles, range(1, 5)):
                 browser.click_link_by_partial_text(title.text)
                 browser.click_link_by_partial_href('.jpg')
-                img_url = browser.windows[x].url
+                img_url = browser.windows[x].url.strip()
                 browser.windows[0]
                 browser.back()
                 hemisphere_image_urls.append({"title": title.text, "img_url": img_url})
-                
+
     else:
         for i in range(1, 5):
-            hemisphere_image_urls.append({"title": "Unavaliable due to Government Furlough", "img_url": "https://www.usgs.gov/sites/all/themes/usgs_palladium/logo.png"})
+            hemisphere_image_urls.append({"title": "Unavaliable due to Government Furlough", "img_url": "http://i.imgur.com/Zl0A6erm.jpg"})
 
     # save to dictionary scrape_data
     scrape_data["hemisphere_image_urls"] = hemisphere_image_urls
